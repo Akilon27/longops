@@ -2,7 +2,7 @@
 
 Package to present long operations (addition, substraction multiplication, square root) and detailed calculations (automatic with etapes-calcul or manually with detail). Inspired by the LaTeX package xlop
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Akilon27/longops/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Akilon27/longops/0.1.0/LICENSE)
 
 ## Installing
 
@@ -87,10 +87,10 @@ Install longops by cloning it or importing like this:
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": DD, DE, add, sous
+#import "@preview/longops:0.1.0": DD, DE, add-en-ligne, sous-en-ligne
 
-$#add(1.2,7,248,45.385)$ et $#sous(248,1.2,7,45.385,digits: 3)$\
-#DE(37,9) et #DD(37,8)
+$#add-en-ligne(1.2,7,248,45.385)$ et $#sous-en-ligne(248,1.2,7,45.385,digits: 3)$\
+#egalite-euclidienne(37,9) et #egalite-decimale(37,8)
 ```
 
 <div align="center">
