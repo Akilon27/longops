@@ -949,11 +949,11 @@
 /// Ecrit l'égalité d'une division euclidienne
 ///
 ///```example
-/// #DE(126, 27)
+/// #egalite-euclidienne(126, 27)
 ///```
 ///
 /// -> content
-#let DE(
+#let egalite-euclidienne(
   /// -> int | float
   a,
   /// -> int | float
@@ -963,11 +963,11 @@
 /// Ecrit l'égalité d'une division décimale
 ///
 ///```example
-/// #DD(126, 25)
+/// #egalite-decimale(126, 25)
 ///```
 ///
 /// -> content
-#let DD(
+#let egalite-decimale(
   /// -> int | float
   a,
   /// -> int | float
@@ -1825,11 +1825,11 @@
 /// Pour avoir la somme en ligne de tous les nombres saisis
 ///
 /// ```example
-/// $#add(198.7,120,35)$
+/// $#add-en-ligne(198.7,120,35)$
 /// ```
 ///
 /// -> content
-#let add(
+#let add-en-ligne(
   ..ops
 ) = {
     let sum = ops.pos().first()
@@ -1844,11 +1844,11 @@
 /// Pour avoir la différence en ligne de tous les nombres saisis
 ///
 /// ```example
-/// $#sous(198.7,107.3,-35)$
+/// $#sous-en-ligne(198.7,107.3,-35)$
 /// ```
 ///
 /// -> content
-#let sous(
+#let sous-en-ligne(
   ..ops,
   /// -> auto | int
   digits:auto
