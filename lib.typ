@@ -1,2 +1,5 @@
-#import "Operations.typ":* 
-#import "Priorités.typ":etapes-calcul,detail 
+#import "/Operations.typ": *
+#import "/Priorités.typ": detail, etapes-calcul
+#import "/durées.typ": *
+
+

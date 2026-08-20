@@ -1,15 +1,15 @@
 # longops
 
-Package to present long operations (addition, substraction multiplication, square root) and detailed calculations (automatic with etapes-calcul or manually with detail). Inspired by the LaTeX package xlop
+Package to present long operations (addition, substraction multiplication, square root) and detailed calculations (automatic with etapes-calcul or manually with detail). Inspired by the LaTeX package xlop. Presenting addition and subtraction of durations is also possible.
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Akilon27/longops/0.1.0/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue)](LICENSE.txt)
 
 ## Installing
 
 Install longops by cloning it or importing like this:
 
 ```typ
-#import "@preview/longops:0.1.0": addition
+#import "@preview/longops:0.1.1": addition
 
 // Cas simple
 #addition(15.97, 24.585)
@@ -22,11 +22,11 @@ Install longops by cloning it or importing like this:
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Additions.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples d'additions" src="Exemples/Additions.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": soustraction
+#import "@preview/longops:0.1.1": soustraction
 
 // Soustraction standard à 2 décimaux
 #soustraction(15.67, 8.29)
@@ -38,11 +38,11 @@ Install longops by cloning it or importing like this:
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Soustractions.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples de soustractions" src="Exemples/Soustractions.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": multiplication
+#import "@preview/longops:0.1.1": multiplication
 
 // Multiplication classique à 2 chiffres au multiplicateur
 #multiplication(123, 45)
@@ -55,11 +55,11 @@ Install longops by cloning it or importing like this:
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Multiplications.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples de multiplications" src="Exemples/Multiplications.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": division
+#import "@preview/longops:0.1.1": division
 
 // Un chiffre en plus que dans a
 #division(62821.64,11,extradigits:1,)
@@ -72,33 +72,33 @@ Install longops by cloning it or importing like this:
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Divisions.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples de division" src="Exemples/Divisions.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": racine
+#import "@preview/longops:0.1.1": racine
 
 #racine(24368,groupes: true)
 #racine(24368,fr:false,extradigits: 1)
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Racines.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples de calcul d'une racine" src="Exemples/Racines.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": egalite-euclidienne, egalite-decimale, add-en-ligne, sous-en-ligne
+#import "@preview/longops:0.1.1": egalite-euclidienne, egalite-decimale, add-en-ligne, sous-en-ligne
 
 $#add-en-ligne(1.2,7,248,45.385)$ et $#sous-en-ligne(248,1.2,7,45.385,digits: 3)$\
 #egalite-euclidienne(37,9) et #egalite-decimale(37,8)
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Autres.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples des autres fonctions" src="Exemples/Autres.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": etapes-calcul
+#import "@preview/longops:0.1.1": etapes-calcul
 
 // Exemple 1
 #etapes-calcul("6 + 5*(23+8/2)",vertical: true,name:"A",highlight: none)
@@ -112,11 +112,11 @@ $#add-en-ligne(1.2,7,248,45.385)$ et $#sous-en-ligne(248,1.2,7,45.385,digits: 3)
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/Etapes-calcul.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples de calculs détaillés automatiquement" src="Exemples/Etapes-calcul.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
 ```typ
-#import "@preview/longops:0.1.0": detail
+#import "@preview/longops:0.1.1": detail
 
 #detail("A=15/21=(5*r3)/(7*r3)=5/7", arrondi: true, vertical: true, c: "circle")
 #detail(
@@ -130,11 +130,64 @@ $#add-en-ligne(1.2,7,248,45.385)$ et $#sous-en-ligne(248,1.2,7,45.385,digits: 3)
 ```
 
 <div align="center">
-  <img alt="exemple d'addition" src="Exemples/detail.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+  <img alt="exemples de calculs détaillés manuellement" src="Exemples/detail.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
 </div>
 
-More on these functions in the [french manual](Exemples/manual.pdf).
+```typ
+#import "@preview/longops:0.1.1": addition-durees
+
+#test(
+  [Avec convertion\ automatique],
+  addition-durees((7, 40), (2.3, 70), show-carry: false)
+)
+#test(
+  [Dépassage 60 min\ et mode convertion],
+  addition-durees((50, 40), (20, 20),convertion: true)
+)
+#test(
+  [Propagation complète],
+  addition-durees((1, 23, 59, 59), (0, 0, 0, 1), liste:(1,9,),solution: true)
+)
+#test(
+  [Disparition des\ colonnes vides],
+  addition-durees((1, 23, 0, 0), (2, 12, 0, 0))
+)
+```
+
+<div align="center">
+  <img alt="exemples d'additions de durées" src="Exemples/addition-durees.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+</div>
+
+```typ
+#import "@preview/longops:0.1.1": soustraction-durees
+
+#test(
+  [Avec convertion auto\ et sans unités],
+  soustraction-durees((7, 20), (2.2, 40), convertion: true, zero-pad: false, show-units: false)
+)
+#test(
+  [Disparition des colonnes vides],
+  soustraction-durees((2,0, 1, 0), (2, 0))
+)
+#test(
+  [Disparition des colonnes\ vides et résultat caché],
+  soustraction-durees((2, 1, 0, 0), (2, 0, 0), convertion: true, hide-result: true)
+)
+```
+
+<div align="center">
+  <img alt="exemples de soustractions de durées" src="Exemples/soustraction-durees.svg" style="max-width: 100%; padding: 10px 10px; box-shadow: 1pt 1pt 10pt 0pt #AAAAAA; border-radius: 4pt; box-sizing: border-box; background: white">
+</div>
+
+More on these functions in the [french manual](Exemples/manuel-longops.pdf) or the [english manual](Exemples/manual-longops-en.pdf).
 
 ## Contributing
 
 Any contributions are welcome! Just fork the repository and make a pull request.
+Thanks to ObaulG for the idea and most of the work on the durations functions.
+
+## Changelog
+*0.1.1* 
+- Added addition-durees and soustractions-durees to work with durations
+- correction of an inconsistency in functions names
+- A few fixes/improvements

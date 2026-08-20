@@ -1,6 +1,6 @@
 [package]
 name = "longops"
-version = "0.1.0"
+version = "0.1.1"
 entrypoint = "lib.typ"
 authors = [ "Akilon <https://github.com/Akilon27>" ]
 license = "MIT"
@@ -17,7 +17,17 @@ keywords = [
   "opérations",
   "operations",
   "racine",
-  "sqrt"
+  "sqrt",
+  "square root",
+  "durées",
+  "durations",
+  "xlop"
 ]
-exclude = [ "/Exemples/*", "manual-longops.pdf", "manual-longops.typ" ]
+exclude = [
+  "/Exemples/*",
+  "manual-longops.pdf",
+  "manual-longops.typ",
+  "manual-longops-en.pdf",
+  "manual-longops-en.typ"
+]
 compiler = "0.12.0"

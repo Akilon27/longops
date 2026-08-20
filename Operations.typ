@@ -4,44 +4,45 @@
 = Additions
 // `addition(nombres, show-carry: true, couleur:red, size:1em, hide-result:false, couleur-cadre:blue.mix(gray), couleur-solution:red, type-mask:"rect", liste:(), solution:false, space:1fr,)`
 
-/// Pose l'addition de 2 ou plusieurs nombres avec possibilité de cacher la ligne de résultat avec `hide-result`, une `liste` de certains chiffres puis d'afficher la `solution`, diverses couleurs paramétrables etc
-///
-/// *Exemples :* 
-///```example
-/// #addition(12.5, 3.75, .8, 14.2)
-///```
-///```example
-/// #addition(12.5, 3.75, .8, 14.2,liste:(2,10,19))
-///```
-///
-/// -> content
+// Pose l'addition de 2 ou plusieurs nombres avec possibilité de cacher la ligne de résultat avec `hide-result`, une `liste` de certains chiffres puis d'afficher la `solution`, diverses couleurs paramétrables etc
+// 
+// *Exemples :* 
+// ```example
+// #addition(12.5, 3.75, .8, 14.2)
+// ```
+// ```example
+// #addition(12.5, 3.75, .8, 14.2,liste:(2,10,19))
+// ```
+// 
+// -> content
 #let addition(
-  /// Montrer ou non les retenues -> boolean
+  // Montrer ou non les retenues -> boolean
   show-carry: true, 
-  /// couleur des retenues -> color
+  // couleur des retenues -> color
   couleur:red,
-  /// Taille des colonnes -> length
+  // Taille des colonnes -> length
   size:1em,
-  /// Affichage des nombres à la française "," ou pas -> boolean
+  // Affichage des nombres à la française "," ou pas -> boolean
   fr: true,
-  /// Cache les retenues et le résultat -> boolean
+  // Cache les retenues et le résultat -> boolean
   hide-result:false,
-  /// Couleur du cadre des chiffres cachés -> color
+  // Couleur du cadre des chiffres cachés -> color
   couleur-cadre:blue.mix(gray),
-  /// Couleur des chiffres cachés si solution = true -> color
+  // Couleur des chiffres cachés si solution = true -> color
   couleur-solution:red,
-  /// Comment les chiffres sont cachés : soient "rect" pour un rectangle arrondi soit ... -> str
+  // Comment les chiffres sont cachés : soient "rect" pour un rectangle arrondi soit ... -> str
   type-mask:"rect",
-  /// liste des chiffres à cacher dans une addition à trous -> array
+  // liste des chiffres à cacher dans une addition à trous -> array
   liste:(),
-  /// Montrer les retenues et le résultat en mode hide-result (pour les corrections) -> boolean
+  // Montrer les retenues et le résultat en mode hide-result (pour les corrections) -> boolean
   solution:false,
-  /// Signe d'égalité, false ou un symbole \$ = \$ -> boolean | content
+  // Signe d'égalité, false ou true [=] ou un symbole \$ = \$ -> boolean | content
   signe:false,
-  /// Espacement si plusieurs sur la même ligne -> length
+  // Espacement si plusieurs sur la même ligne -> length
   space:1fr,
-  /// taille du des chiffres : 1em -> length
+  // taille du des chiffres : 1em -> length
   texte:1em,
+  // -> array | arguments
   ..args
 ) = {
   let decimal-sep = if fr {[,]} else {[.]}
@@ -181,7 +182,7 @@
   }
 
   // Ligne du résultat
-  let ligne-resultat = (if signe != false {signe} else [],)
+  let ligne-resultat = (if signe == true [=] else if signe != false {signe} else [],)
   for digit in entiere-resultat.clusters() {
     ligne-resultat.push(digit)
   }
@@ -234,18 +235,18 @@
 }
 
 // Version avec étapes détaillées pour deux entiers
-///
-/// *Exemples :* 
-///#example(`#_addition-detaillee(245, 167)`,ratio:.4)
-/// 
-///
-/// -> content
+// 
+// *Exemples :* 
+// #example(`#_addition-detaillee(245, 167)`,ratio:.4)
+// 
+// 
+// -> content
 #let _addition-detaillee(
-  /// -> int
+  // -> int
   nombre1, 
-  /// -> int
+  // -> int
   nombre2, 
-  /// couleur des retenues -> color
+  // couleur des retenues -> color
   couleur:red
 ) = {
   let str1 = str(nombre1)
@@ -299,49 +300,49 @@
 
 // `soustraction(nombres, show-borrow: true, barre:false, fr:true, couleur:red, size:1em, zeros:true, hide-result:false, couleur-cadre:blue.mix(gray), couleur-solution:red, type-mask:"rect", liste:(), solution:false, space:1fr,)` 
 
-/// Pose la soustraction de 2 ou plusieurs nombres avec possibilité de cacher la ligne de résultat avec `hide-result`, une `liste` de certains chiffres puis d'afficher la `solution`, diverses couleurs paramétrables etc
-///
-/// *Exemples :* 
-///```example
-/// #soustraction(12.5, 3.75)
-///```
-///```example
-/// #soustraction(121.5, 3.75, .8, 14.2,liste:(2,10,19))
-///```
-///
-/// -> content
+// Pose la soustraction de 2 ou plusieurs nombres avec possibilité de cacher la ligne de résultat avec `hide-result`, une `liste` de certains chiffres puis d'afficher la `solution`, diverses couleurs paramétrables etc
+// 
+// *Exemples :* 
+// ```example
+// #soustraction(12.5, 3.75)
+// ```
+// ```example
+// #soustraction(121.5, 3.75, .8, 14.2,liste:(2,10,19))
+// ```
+// 
+// -> content
 #let soustraction(
-  /// Montrer ou non les retenues -> boolean
+  // Montrer ou non les retenues -> boolean
   show-borrow: true, 
-  /// Si fr:false, montrer ou non le nombre initial barré -> boolean
+  // Si fr:false, montrer ou non le nombre initial barré -> boolean
   barre:false, 
-  /// Ecriture française ou avec emprunts à l'anglaise -> boolean
+  // Ecriture française ou avec emprunts à l'anglaise -> boolean
   fr:true, 
-  /// couleur des retenues -> color
+  // couleur des retenues -> color
   couleur:red,
-  /// Taille des colonnes -> length
+  // Taille des colonnes -> length
   size:1em,
-  /// Ajoute ou non des zéros -> boolean
+  // Ajoute ou non des zéros -> boolean
   zeros:true,
-  /// Cache les retenues et le résultat -> boolean
+  // Cache les retenues et le résultat -> boolean
   hide-result:false,
-  /// Couleur du cadre des chiffres cachés -> color
+  // Couleur du cadre des chiffres cachés -> color
   couleur-cadre:blue.mix(gray),
-  /// Couleur des chiffres cachés si solution = true -> color
+  // Couleur des chiffres cachés si solution = true -> color
   couleur-solution:red,
-  /// Comment les chiffres sont cachés : soient "rect" pour un rectangle arrondi soit ... -> str
+  // Comment les chiffres sont cachés : soient "rect" pour un rectangle arrondi soit ... -> str
   type-mask:"rect",
-  /// liste des chiffres à cacher dans une addition à trous -> array
+  // liste des chiffres à cacher dans une addition à trous -> array
   liste:(),
-  /// Montrer les retenues et le résultat en mode hide-result (pour les corrections) -> boolean
+  // Montrer les retenues et le résultat en mode hide-result (pour les corrections) -> boolean
   solution:false,
-  /// Signe d'égalité, false ou un symbole \$ = \$ -> boolean | content
+  // Signe d'égalité, false ou true [=] ou un symbole \$ = \$ -> boolean | content
   signe:false,
-  /// taille du des chiffres : 1em -> length
+  // taille du des chiffres : 1em -> length
   texte:1em,
-  /// Espacement si plusieurs sur la même ligne -> length
+  // Espacement si plusieurs sur la même ligne -> length
   space:1fr,
-  /// -> array
+  // -> array | arguments
   ..args
 ) = {
   // Récupération des nombres (arguments positionnels ou tableau unique)
@@ -445,7 +446,7 @@
   let colonnes = nb-cols-chiffres + (if max-decimales > 0 { 1 } else { 0 }) + 1
   let lignes = ()
 
-  let show-carry-cond = show-borrow and ((not hide-result and liste == ()) or solution)
+  let show-carry-cond = show-borrow 
 
   // 1. Ligne supérieure des retenues (Méthode française)
   let has-top-borrow = fr and show-carry-cond
@@ -462,6 +463,7 @@
         top-row.push([])
       }
     }
+    if not ((not hide-result and liste == ()) or solution) {top-row = ([],) * top-row.len()}
     lignes.push(top-row)
   }
 
@@ -572,7 +574,7 @@
   let has-bottom-carry = fr and show-carry-cond
   if has-bottom-carry {
     let bot-row = ([],)
-    for i in range(nb-cols-chiffres) {
+    for i in range(nb-cols-chiffres) { {
       if i == pos-virgule and max-decimales > 0 {
         bot-row.push(table.cell(inset: (x: -3pt))[])
       }
@@ -582,12 +584,13 @@
       } else {
         bot-row.push([])
       }
-    }
+    }}
+    if not ((not hide-result and liste == ()) or solution) {bot-row = ([],) * bot-row.len()}
     lignes.push(bot-row)
   }
 
   // 5. Ligne du résultat
-  let ligne-resultat = (if signe != false {signe} else [],)
+  let ligne-resultat = (if signe == true [=] else if signe != false {signe} else [],)
   let orig-res-ent = str(calc.abs(total-result)).split(".").at(0)
   for (c-idx, digit) in entiere-resultat.clusters().enumerate() {
     let is-padded = (c-idx < max-entieres - orig-res-ent.len())
@@ -610,9 +613,9 @@
   // Application du masque de résultat caché
   if hide-result {
     for i in range(1, lignes.at(ymax).len()) {
-      if lignes.at(ymax).at(i) != [] {
+      // if lignes.at(ymax).at(i) != [] {
         lignes.at(ymax).at(i) = mask(lignes.at(ymax).at(i))
-      }
+      // }
     }
   }
 
@@ -656,16 +659,16 @@
 }
 
 // Version avec étapes détaillées pour la soustraction à l'anglaise (avec emprunts et non retenues)
-///
-/// *Exemples :* 
-/// #example(`#_soustraction-detaillee(121.5, 14.2)`,ratio:.8)
-/// 
-///
-/// -> content
+// 
+// *Exemples :* 
+// #example(`#_soustraction-detaillee(121.5, 14.2)`,ratio:.8)
+// 
+// 
+// -> content
 #let _soustraction-detaillee(
-  /// -> int | float
+  // -> int | float
   nombre1, 
-  /// -> int | float
+  // -> int | float
   nombre2
 ) = {
   if nombre1 < nombre2 {
@@ -733,43 +736,43 @@
 
 // `multiplication(a, b, mode:"g", sym:true, fr:true, spread:1em, size:auto, hide-result:false, couleur-cadre:blue.mix(gray), couleur-solution:red, type:"rect", liste:(), solution:false, space:1fr,)` 
 
-/// Pose la multiplication de 2 nombres entiers ou décimaux avec possibilité de cacher les lignes avec `hide-result`, une `liste` de certains chiffres puis d'afficher la `solution`, diverses couleurs paramétrables etc
-///
-/// *Exemples :* #v(6em)
-///```example
-/// #multiplication(12.5, 3.75)
-///```
-///```example
-/// #multiplication(1215, 142,liste:(3,12,19,36),type-mask: "line",)
-///```
-///
-/// -> content
+// Pose la multiplication de 2 nombres entiers ou décimaux avec possibilité de cacher les lignes avec `hide-result`, une `liste` de certains chiffres puis d'afficher la `solution`, diverses couleurs paramétrables etc
+// 
+// *Exemples :* #v(6em)
+// ```example
+// #multiplication(12.5, 3.75)
+// ```
+// ```example
+// #multiplication(1215, 142,liste:(3,12,19,36),type-mask: "line",)
+// ```
+// 
+// -> content
 #let multiplication(
-  /// -> int | float
+  // -> int | float
   a, 
-  /// -> int | float
+  // -> int | float
   b,
-  /// Présentation des décalages : "g" (défaut) pour 0 en gris, "0" pour des 0 normaux, "p" pour des petits points et "gp" pour des points plus gros, "" ou autre pour rien -> str
+  // Présentation des décalages : "g" (défaut) pour 0 en gris, "0" pour des 0 normaux, "p" pour des petits points et "gp" pour des points plus gros, "" ou autre pour rien -> str
   mode: "g",
-  /// Afficher les + des additions et le égal du résultat si true, seulement les + si "+", seulement le = si "=", rien sinon -> boolean | str
+  // Afficher les + des additions et le égal du résultat si true, seulement les + si "+", seulement le = si "=", rien si false, sinon donner une liste du signe ($+$, $=$) par ex -> boolean | str | array
   sym: true,
-  /// Mode fr:true, le séparateur décimal est "," sinon "." -> boolean | str
+  // Mode fr:true, le séparateur décimal est "," sinon "." -> boolean | str
   fr: true,
-  /// Largeur des colonnes -> length
+  // Largeur des colonnes -> length
   size: 1em,
-  /// Masquer les lignes intermédiaires et le résultat final pour les exercices -> boolean
+  // Masquer les lignes intermédiaires et le résultat final pour les exercices -> boolean
   hide-result: false,
-  /// Liste des indices de cases à masquer (pour multiplication à trous) -> array
+  // Liste des indices de cases à masquer (pour multiplication à trous) -> array
   liste: (),
-  /// Afficher ou non la solution dans les masques -> boolean
+  // Afficher ou non la solution dans les masques -> boolean
   solution: false,
-  /// Type de masque ("rect" ou "line") -> str
+  // Type de masque ("rect" ou "line") -> str
   type-mask: "rect",
-  /// Couleur de la bordure des cadres de masque -> color
+  // Couleur de la bordure des cadres de masque -> color
   couleur-cadre: blue.mix(gray),
-  /// Couleur du texte de la solution -> color
+  // Couleur du texte de la solution -> color
   couleur-solution: red,
-  /// Espacement si plusieurs sur la même ligne -> length
+  // Espacement si plusieurs sur la même ligne -> length
   space: 1fr,
 ) = {
   let decimal-separator = if fr { "," } else { "." }
@@ -861,7 +864,8 @@
   let (s1, s2) = if sym == true { (text(.7em)[$ + $], text(.7em)[$ = $]) }
                  else if sym == "+" { (text(.7em)[$ + $], [ ]) }
                  else if sym == "=" { ([ ], text(.7em)[$ = $]) }
-                 else { ([ ], [ ]) }
+                 else if sym == false{ ([ ], [ ]) }
+                 else {sym}
 
   // Construction des deux premières lignes
   let row-a = (none,) * calc.max(0, col - affichea.len()) + affichea
@@ -946,96 +950,96 @@
 
 = Divisions
 
-/// Ecrit l'égalité d'une division euclidienne
-///
-///```example
-/// #egalite-euclidienne(126, 27)
-///```
-///
-/// -> content
+// Ecrit l'égalité d'une division euclidienne
+// 
+// ```example
+// #egalite-euclidienne(126, 27)
+// ```
+// 
+// -> content
 #let egalite-euclidienne(
-  /// -> int | float
+  // -> int | float
   a,
-  /// -> int | float
+  // -> int | float
   b
 ) = $#a=#calc.quo(a,b) times #b+#calc.rem(a,b)$
 
-/// Ecrit l'égalité d'une division décimale
-///
-///```example
-/// #egalite-decimale(126, 25)
-///```
-///
-/// -> content
+// Ecrit l'égalité d'une division décimale
+// 
+// ```example
+// #egalite-decimale(126, 25)
+// ```
+// 
+// -> content
 #let egalite-decimale(
-  /// -> int | float
+  // -> int | float
   a,
-  /// -> int | float
+  // -> int | float
   b,
-  /// -> str
+  // -> str
   s:"e"
 ) = $#a div #b #{if s == "e" {$=$} else {$approx$}}#{a/b}$
 
-/// `division(a,b,mode:"g",extradigits:0,s:true, cycle: false, cycle-color:luma(50%),decimal-separator:",", size:1em,  hide-result: false, liste: (), solution: false, type-mask: "rect", couleur-cadre: blue.mix(gray), couleur-solution: red, space:1fr,..args)`
+// `division(a,b,mode:"g",extradigits:0,s:true, cycle: false, cycle-color:luma(50%),decimal-separator:",", size:1em,  hide-result: false, liste: (), solution: false, type-mask: "rect", couleur-cadre: blue.mix(gray), couleur-solution: red, space:1fr,..args)`
 
-/// Couleur d'accentuation
-/// couleur: red,
+// Couleur d'accentuation
+// couleur: red,
 
-/// Division du décimal a par le second b
-///
-/// avec : `extradigits` chiffres en plus après la virgule que dans a (si cycle:false), ils apparaissent en gris (`mode:`"g" par défaut) ou blanc (mode:"0") ou des points (mode:"p" ou "gp") ou rien (mode:""), `s:`true/false pour avoir ou non les soustractions, 
-/// Possibilité de sousligner en couleur (`cycle-color`) le cycle dans le quotient avec `cycle:true` ou de l'avoir entre parenthèses `cycle:""` ou en couleur `cycle:red`
-/// Possibilité de présenter des divisions à trous avec `hide-result`, `liste` et `solution` (de paramètres `type-mask`, `couleur-cadre` et `couleur-solution`)
-///
-/// *Exemples :* 
-///```example
-/// #division(12.6, 3.75)
-///```
-///```example
-/// #division(121.5, 7, cycle:true)
-///```
-///```example
-/// #division(121.5, 7, cycle:true,fr:false,dx:.5em,dy:-.9em)
-///```
-///
-///
-/// -> content
+// Division du décimal a par le second b
+// 
+// avec : `extradigits` chiffres en plus après la virgule que dans a (si cycle:false), ils apparaissent en gris (`mode:`"g" par défaut) ou blanc (mode:"0") ou des points (mode:"p" ou "gp") ou rien (mode:""), `s:`true/false pour avoir ou non les soustractions, 
+// Possibilité de sousligner en couleur (`cycle-color`) le cycle dans le quotient avec `cycle:true` ou de l'avoir entre parenthèses `cycle:""` ou en couleur `cycle:red`
+// Possibilité de présenter des divisions à trous avec `hide-result`, `liste` et `solution` (de paramètres `type-mask`, `couleur-cadre` et `couleur-solution`)
+// 
+// *Exemples :* 
+// ```example
+// #division(12.6, 3.75)
+// ```
+// ```example
+// #division(121.5, 7, cycle:true)
+// ```
+// ```example
+// #division(121.5, 7, cycle:true,fr:false,dx:.5em,dy:-.9em)
+// ```
+// 
+// 
+// -> content
 #let division(
-  /// -> int | float
+  // -> int | float
   a, 
-  /// -> int | float
+  // -> int | float
   b,
-  /// Mode pour les zéros ajoutés au dividende : "g" (gris), "0" (noir), "p" (petit point), "gp" (grand point), "" (vide) -> str
+  // Mode pour les zéros ajoutés au dividende : "g" (gris), "0" (noir), "p" (petit point), "gp" (grand point), "" (vide) -> str
   mode: "g",
-  /// Nombre de décimales supplémentaires à calculer au quotient -> int
+  // Nombre de décimales supplémentaires à calculer au quotient -> int
   extradigits: 0,
-  /// s: true/false pour afficher ou masquer les soustractions -> boolean
+  // s: true/false pour afficher ou masquer les soustractions -> boolean
   s: true,
-  /// Détection et affichage automatique du cycle périodique -> boolean | str | color
+  // Détection et affichage automatique du cycle périodique -> boolean | str | color
   cycle: false, 
-  /// couleur du cycle ou du soulignage -> color
+  // couleur du cycle ou du soulignage -> color
   cycle-color: luma(50%),
-  /// Mode fr:true, le séparateur décimal est "," sinon "." -> boolean
+  // Mode fr:true, le séparateur décimal est "," sinon "." -> boolean
   fr:true,
-  /// Taille des colonnes du tableau -> length
+  // Taille des colonnes du tableau -> length
   size: .7em,
-  /// dx for the ) in mode fr:false
+  // dx for the ) in mode fr:false
   dx:.6em,
-  /// dy for the ) in mode fr:false
+  // dy for the ) in mode fr:false
   dy:-.82em,
-  /// Masquer les étapes et le quotient pour le mode exercice -> boolean
+  // Masquer les étapes et le quotient pour le mode exercice -> boolean
   hide-result: false,
-  /// Liste des indices de cases à masquer (exercice à trous : a, b, étapes, quotient) -> array
+  // Liste des indices de cases à masquer (exercice à trous : a, b, étapes, quotient) -> array
   liste: (),
-  /// Afficher ou non la solution dans les masques -> boolean
+  // Afficher ou non la solution dans les masques -> boolean
   solution: false,
-  /// Type de masque ("rect" ou "line") -> str
+  // Type de masque ("rect" ou "line") -> str
   type-mask: "rect",
-  /// Couleur de la bordure des cadres de masque -> color
+  // Couleur de la bordure des cadres de masque -> color
   couleur-cadre: blue.mix(gray),
-  /// Couleur du texte de la solution -> color
+  // Couleur du texte de la solution -> color
   couleur-solution: red,
-  /// Espacement si plusieurs sur la même ligne -> length
+  // Espacement si plusieurs sur la même ligne -> length
   space:1fr,
 ) = {
   let decimal-separator = if fr {","} else {"."}
@@ -1410,22 +1414,22 @@
 // ],)+if i == 1 {([],[],)}}
 // )`
 
-/// Calcul de la racine carrée de a, avec `extradigits` décimales en plus, en montrant les `groupes` de 2 en `couleur-groupes`, avec possibilité d'afficher les étapes avec `step`, de cacher les soustractions avec `s`, de cacher les résultats ou une `liste` de chiffres
-///
-/// *Exemples :* 
-///```example 
-/// #racine(24368,size: 1em,liste: (2,27))
-///```
-/// #example(`#grid(columns: 3*(1fr,), row-gutter: 1em, 
-/// ..for i in range(1,11) {([
-///   ==== Étape #i
-///   #racine(24368, extradigits: 1,groupes: true, step: i)
-/// ],)+if i == 1 {([],[],)}}
-/// )` , dir:ttb, scale-preview:100%)
-///
-/// -> content
+// Calcul de la racine carrée de a, avec `extradigits` décimales en plus, en montrant les `groupes` de 2 en `couleur-groupes`, avec possibilité d'afficher les étapes avec `step`, de cacher les soustractions avec `s`, de cacher les résultats ou une `liste` de chiffres
+// 
+// *Exemples :* 
+// ```example 
+// #racine(24368,size: 1em,liste: (2,27))
+// ```
+// #example(`#grid(columns: 3*(1fr,), row-gutter: 1em, 
+// ..for i in range(1,11) {([
+//   ==== Étape #i
+//   #racine(24368, extradigits: 1,groupes: true, step: i)
+// ],)+if i == 1 {([],[],)}}
+// )` , dir:ttb, scale-preview:100%)
+// 
+// -> content
 #let racine(
-  /// -> int | float
+  // -> int | float
   a,
   // Nombre de tranches de "00" supplémentaires à calculer après la virgule -> int
   extradigits: 0,
@@ -1439,21 +1443,21 @@
   couleur-step: blue.darken(20%),
   // Afficher ou masquer les soustractions sous le dividende -> boolean
   s: true,
-  /// Mode fr:true, le séparateur décimal est "," sinon "." -> boolean
+  // Mode fr:true, le séparateur décimal est "," sinon "." -> boolean
   fr:true,
-  /// Largeur des colonnes -> length
+  // Largeur des colonnes -> length
   size: 0.65em,
-  /// Masquer les étapes, les opérations et le résultat (mode exercice) -> boolean
+  // Masquer les étapes, les opérations et le résultat (mode exercice) -> boolean
   hide-result: false,
-  /// Liste des indices de cases à masquer (exercice à trous) -> array
+  // Liste des indices de cases à masquer (exercice à trous) -> array
   liste: (),
-  /// Afficher ou non la solution dans les masques -> boolean
+  // Afficher ou non la solution dans les masques -> boolean
   solution: false,
-  /// Type de masque ("rect" ou "line") -> str
+  // Type de masque ("rect" ou "line") -> str
   type: "rect",
-  /// Couleur de la bordure des cadres de masque -> color
+  // Couleur de la bordure des cadres de masque -> color
   couleur-cadre: blue.mix(gray),
-  /// Couleur du texte de la solution -> color
+  // Couleur du texte de la solution -> color
   couleur-solution: red,
   // espacement à droite -> length
   space: 1fr,
@@ -1822,13 +1826,13 @@
 
 = Calculs en ligne
 
-/// Pour avoir la somme en ligne de tous les nombres saisis
-///
-/// ```example
-/// $#add-en-ligne(198.7,120,35)$
-/// ```
-///
-/// -> content
+// Pour avoir la somme en ligne de tous les nombres saisis
+// 
+// ```example
+// $#add-en-ligne(198.7,120,35)$
+// ```
+// 
+// -> content
 #let add-en-ligne(
   ..ops
 ) = {
@@ -1841,16 +1845,16 @@
     [ \= #calc.round(sum,digits:6) ]    
 }
 
-/// Pour avoir la différence en ligne de tous les nombres saisis
-///
-/// ```example
-/// $#sous-en-ligne(198.7,107.3,-35)$
-/// ```
-///
-/// -> content
+// Pour avoir la différence en ligne de tous les nombres saisis
+// 
+// ```example
+// $#sous-en-ligne(198.7,107.3,-35)$
+// ```
+// 
+// -> content
 #let sous-en-ligne(
   ..ops,
-  /// -> auto | int
+  // -> auto | int
   digits:auto
 ) = {
     if digits == auto {digits = 6}
@@ -1861,977 +1865,4 @@
         {sum = sum - op}
     }
     [ \= #calc.round(sum,digits:6) ]    
-}
-
-= Additions de durées
-
-
-/// Pose l’addition de deux ou plusieurs durées.
-///
-/// Chaque durée est un tableau de l'une des formes suivantes :
-/// - `(jours, heures, minutes, secondes)`.
-/// - `(heures, minutes, secondes)`.
-/// - `(minutes, secondes)`.
-/// *Exemples :*
-/// ```example
-/// #addition-durees(
-///   (1, 2, 45, 50),
-///   (0, 1, 20, 30),
-/// )
-/// ```
-///
-/// ```example
-/// #addition-durees(
-///   (
-///     (1, 2, 45, 50),
-///     (0, 1, 20, 30),
-///     (2, 23, 55, 45),
-///   ),
-///   hide-result: true,
-/// )
-/// ```
-///
-/// -> content
-#let addition-durees(
-  /// Afficher les retenues.
-  show-carry: true,
-
-  /// Couleur des retenues.
-  couleur: red,
-
-  /// Largeur des colonnes correspondant aux unités.
-  size: 2.5em,
-
-  /// Masquer le résultat.
-  hide-result: false,
-
-  /// Couleur du cadre des valeurs masquées.
-  couleur-cadre: blue.mix(gray),
-
-  /// Couleur des valeurs dans la correction.
-  couleur-solution: red,
-
-  /// Type de masque : "rect" ou "line".
-  type-mask: "rect",
-
-  /// Indices des cellules à masquer.
-  liste: (),
-
-  /// Afficher la solution des cellules masquées.
-  solution: false,
-
-  /// Signe placé devant le résultat.
-  signe: false,
-
-  /// Taille du texte.
-  texte: 1em,
-
-  /// Afficher les noms des unités.
-  show-units: true,
-
-  /// Afficher heures, minutes et secondes sur deux chiffres.
-  zero-pad: true,
-
-  ..args
-) = {
-  /// Noms des quatre unités.
-  let unites = ([j], [h], [min], [s])
-  
-  let durees = args.pos()
-
-  // Autorise les deux écritures :
-  //
-  // addition-durees((1, 2, 3, 4), (0, 5, 6, 7))
-  //
-  // addition-durees((
-  //   (1, 2, 3, 4),
-  //   (0, 5, 6, 7),
-  // ))
-  if durees.len() == 1 {
-    let premier = durees.at(0)
-
-    if (
-      type(premier) == array
-      and premier.len() > 0
-      and type(premier.at(0)) == array
-    ) {
-      durees = premier
-    }
-  }
-
-  if durees.len() < 2 {
-    panic(
-      "La fonction addition-durees nécessite au moins deux durées."
-    )
-  }
-
-  // Vérification des durées.
-  for (index, duree) in durees.enumerate() {
-    let nb_args = duree.len()
-    if type(duree) != array or nb_args < 2 or nb_args > 4 {
-      panic(
-        "La durée "
-        + str(index + 1)
-        + " doit contenir entre 2 et 4 valeurs"
-      )
-    }
-
-    for valeur in duree {
-      if type(valeur) != int or valeur < 0 {
-        panic(
-          "Les composantes d’une durée doivent être "
-          + "des entiers positifs ou nuls."
-        )
-      }
-    }
-
-    if duree.at(-1) >= 60 {
-      panic(
-        "Le nombre de secondes d’une durée doit être inférieur à 60."
-      )
-    }
-
-    if duree.at(-2) >= 60 {
-      panic(
-        "Le nombre de minutes d’une durée doit être inférieur à 60."
-      )
-    }
-
-    if nb_args > 2 and duree.at(-3) >= 24 {
-      panic(
-        "Le nombre d'heures d’une durée doit être inférieur à 24."
-      )
-    }
-  }
-
-  set text(texte)
-
-  // Masque utilisé pour le résultat et les additions à trous.
-  let mask(x) = if type-mask == "rect" {
-    rect(
-      width: 90%,
-      height: 1em,
-      radius: 0.35em,
-      stroke: couleur-cadre + 0.75pt,
-      text(
-        fill: if solution { couleur-solution } else { white },
-        x,
-      ),
-    )
-  } else {
-    box(
-      inset: 2pt,
-      underline(
-        stroke: (
-          paint: black,
-          dash: "dotted",
-          thickness: 0.75pt,
-        ),
-        extent: 0.45pt,
-        offset: 1.65pt,
-        text(
-          fill: if solution { couleur-solution } else { white },
-          x,
-        ),
-      ),
-    )
-  }
-
-
-
-  // Secondes.
-  let total-secondes = durees.map(d => d.at(-1)).sum()
-  let retenue-minutes = calc.trunc(total-secondes / 60)
-  let secondes = total-secondes - 60 * retenue-minutes
-
-  // Minutes, en ajoutant la retenue des secondes.
-  let total-minutes = (
-    durees.map(d => d.at(-2)).sum()
-    + retenue-minutes
-  )
-  let retenue-heures = calc.trunc(total-minutes / 60)
-  let minutes = total-minutes - 60 * retenue-heures
-
-  // Heures, en ajoutant la retenue des minutes.
-  let total-heures = retenue-heures
-  for duree in durees {
-    if duree.len() > 2 {
-      total-heures += duree.at(-3)
-    }
-  }
-  let retenue-jours = calc.trunc(total-heures / 24)
-  let heures = total-heures - 24 * retenue-jours
-
-  // Jours, en ajoutant la retenue des heures.
-  let jours = retenue-jours
-  for duree in durees {
-    if duree.len() > 3 {
-      jours += duree.at(-4)
-    }
-  }
-
-  
-  let resultat = (
-    jours,
-    heures,
-    minutes,
-    secondes,
-  )
-
-  // Les retenues sont placées au-dessus de l’unité
-  // dans laquelle elles doivent être ajoutées.
-  let retenues = (
-    retenue-jours,
-    retenue-heures,
-    retenue-minutes,
-    0,
-  )
-
-  // ----------------------------------------------------------
-  // Mise en forme des valeurs
-  // ----------------------------------------------------------
-
-  // on détermine le nombre maximum de colonnes de valeurs à afficher EN FONCTION du maximum du nombre d'arguments des durées.
-  
-  let max-cols = 2
-  for duree in durees{
-    if duree.len() > max-cols{
-      max-cols = duree.len()
-    }
-  }
-
-  // inscrit le nombre à deux chiffres en insérant des 0 à gauche si nécessaire
-  let format-valeur(valeur, colonne) = {
-    let texte-valeur = str(valeur)
-
-    if (
-      zero-pad
-      and colonne > 0
-      and texte-valeur.len() < 2
-    ) {
-      "0" * (2 - texte-valeur.len()) + texte-valeur
-    } else {
-      texte-valeur
-    }
-  }
-
-  let lignes = ()
-
-  // Les retenues sont cachées en même temps que le résultat,
-  // sauf lorsque la correction est demandée.
-  let has-carry-row = (
-    show-carry
-    and (
-      (not hide-result and liste == ())
-      or solution
-    )
-  )
-  // ---------------------------
-  // 1. Ligne des retenues.
-  // ---------------------------
-  if has-carry-row {
-    // on prévoit un espace vide pour la colonne avec le symbole...
-    let ligne-retenues = ([],)
-
-    for (i, retenue) in retenues.enumerate() {
-      // si y a moins de 4 colonnes
-      if i < 4 - max-cols{
-        continue
-      }
-      if retenue > 0 {
-        ligne-retenues.push(
-          text(
-            size: 0.8em,
-            fill: couleur,
-          )[#retenue]
-        )
-      } else {
-        ligne-retenues.push([])
-      }
-    }
-
-    lignes.push(ligne-retenues)
-  }
-  // ---------------------------
-  // 2. Lignes des durées à additionner.
-  // ---------------------------
-  for (index, duree) in durees.enumerate() {
-    let ligne = (
-      if index > 0 {
-        text(0.8em)[$+$]
-      } else {
-        []
-      },
-    )
-    // ---------------------------
-    // 2.i Ligne i
-    // ---------------------------
-
-    // dans le cas ou duree.len() < max-cols, on complète avec autant de [] que nécessaire
-    let pad = max-cols - duree.len()
-    for i in range(pad){ligne.push([])}
-    for (i, valeur) in duree.enumerate() {
-      ligne.push(format-valeur(valeur, i))
-    }
-
-    lignes.push(ligne)
-  }
-  // ---------------------------
-  // 3. Ligne du résultat.
-  // ---------------------------
-  let ligne-resultat = (
-    if signe != false { signe } else { [] },
-  )
-
-  for (colonne, valeur) in resultat.enumerate() {
-    if colonne < 4 - max-cols {
-        continue
-      }
-    ligne-resultat.push(
-      format-valeur(valeur, colonne)
-    )
-  }
-
-  // Masquage du résultat.
-  if hide-result {
-    for index in range(1, ligne-resultat.len()) {
-      ligne-resultat.at(index) = mask(
-        ligne-resultat.at(index)
-      )
-    }
-  }
-
-  lignes.push(ligne-resultat)
-
-  // ----------------------------------------------------------
-  // Additions à trous
-  // ----------------------------------------------------------
-
-  // La ligne des retenues ne participe pas à la numérotation
-  // des cellules masquées.
-  let carry-line = if has-carry-row {
-    lignes.remove(0)
-  } else {
-    none
-  }
-
-  let termes = lignes.flatten()
-
-  for index in liste {
-    if (
-      type(index) == int
-      and index >= 0
-      and index < termes.len()
-    ) {
-      termes.at(index) = mask(termes.at(index))
-    }
-  }
-
-  if carry-line != none {
-    termes = carry-line + termes
-  }
-
-  // ----------------------------------------------------------
-  // En-tête des unités
-  // ----------------------------------------------------------
-
-  let entete = ()
-
-  if show-units {
-    entete.push([])
-
-    for (i, unite) in unites.enumerate() {
-      if i < 4 - max-cols{ continue }
-      entete.push(
-        text(
-          size: 0.75em,
-          fill: gray,
-          weight: "bold",
-        )[#unite]
-      )
-    }
-  }
-
-  // Indice de la ligne de résultat.
-  let y-resultat = (
-    (if show-units { 1 } else { 0 })
-    + (if has-carry-row { 1 } else { 0 })
-    + durees.len()
-  )
-
-  // ----------------------------------------------------------
-  // Rendu
-  // ----------------------------------------------------------
-
-  // autant de colonnes que max-cols
-  let columns = ()
-  columns.push(1.4em)
-  for i in range(max-cols){columns.push(size)}
-  box(
-    table(
-      columns: columns,
-      stroke: none,
-      inset: (x: 3pt, y: 3pt),
-      align: center + horizon,
-
-      ..entete,
-      ..termes,
-
-      table.hline(
-        y: y-resultat,
-        stroke: 1pt,
-      ),
-    )
-  )
-}
-
-= Soustractions de durées
-
-/// Pose la soustraction de deux durées.
-///
-/// Chaque durée est un tableau de l’une des formes suivantes :
-/// - `(jours, heures, minutes, secondes)` ;
-/// - `(heures, minutes, secondes)` ;
-/// - `(minutes, secondes)`.
-///
-/// La première durée doit être supérieure ou égale à la seconde.
-///
-/// *Exemples :*
-/// ```example
-/// #soustraction-durees(
-///   (2, 4, 15, 10),
-///   (1, 6, 45, 30),
-/// )
-/// ```
-///
-/// ```example
-/// #soustraction-durees(
-///   (2, 15, 10),
-///   (1, 45, 30),
-///   hide-result: true,
-/// )
-/// ```
-///
-/// -> content
-#let soustraction-durees(
-  /// Afficher les emprunts et les retenues.
-  show-borrow: true,
-
-  /// Couleur des emprunts et retenues.
-  couleur: red,
-
-  /// Largeur des colonnes.
-  size: 2.5em,
-
-  /// Masquer le résultat.
-  hide-result: false,
-
-  /// Couleur du cadre des valeurs masquées.
-  couleur-cadre: blue.mix(gray),
-
-  /// Couleur des valeurs dans la correction.
-  couleur-solution: red,
-
-  /// Type de masque : "rect" ou "line".
-  type-mask: "rect",
-
-  /// Indices des cellules à masquer.
-  liste: (),
-
-  /// Afficher la solution.
-  solution: false,
-
-  /// Signe placé devant le résultat.
-  signe: false,
-
-  /// Taille du texte.
-  texte: 1em,
-
-  /// Afficher les noms des unités.
-  show-units: true,
-
-  /// Afficher heures, minutes et secondes sur deux chiffres.
-  zero-pad: true,
-
-  ..args
-) = {
-  let unites = ([j], [h], [min], [s])
-  let durees = args.pos()
-
-  // Autorise :
-  //
-  // soustraction-durees(
-  //   (1, 2, 3, 4),
-  //   (0, 5, 6, 7),
-  // )
-  //
-  // et :
-  //
-  // soustraction-durees((
-  //   (1, 2, 3, 4),
-  //   (0, 5, 6, 7),
-  // ))
-  if durees.len() == 1 {
-    let premier = durees.at(0)
-
-    if (
-      type(premier) == array
-      and premier.len() > 0
-      and type(premier.at(0)) == array
-    ) {
-      durees = premier
-    }
-  }
-
-  if durees.len() != 2 {
-    panic(
-      "La fonction soustraction-durees nécessite exactement deux durées."
-    )
-  }
-
-  // ----------------------------------------------------------
-  // Vérification des durées
-  // ----------------------------------------------------------
-
-  for (index, duree) in durees.enumerate() {
-    if type(duree) != array {
-      panic(
-        "La durée "
-        + str(index + 1)
-        + " doit être un tableau."
-      )
-    }
-
-    let nb-args = duree.len()
-
-    if nb-args < 2 or nb-args > 4 {
-      panic(
-        "La durée "
-        + str(index + 1)
-        + " doit contenir entre 2 et 4 valeurs."
-      )
-    }
-
-    for valeur in duree {
-      if type(valeur) != int or valeur < 0 {
-        panic(
-          "Les composantes d’une durée doivent être "
-          + "des entiers positifs ou nuls."
-        )
-      }
-    }
-
-    if duree.at(-1) >= 60 {
-      panic(
-        "Le nombre de secondes doit être inférieur à 60."
-      )
-    }
-
-    if duree.at(-2) >= 60 {
-      panic(
-        "Le nombre de minutes doit être inférieur à 60."
-      )
-    }
-
-    if nb-args > 2 and duree.at(-3) >= 24 {
-      panic(
-        "Le nombre d’heures doit être inférieur à 24."
-      )
-    }
-  }
-
-  set text(texte)
-
-  // ----------------------------------------------------------
-  // Nombre de colonnes à afficher
-  // ----------------------------------------------------------
-
-  let max-cols = calc.max(
-    durees.at(0).len(),
-    durees.at(1).len(),
-  )
-
-  let debut = 4 - max-cols
-  let colonnes = max-cols + 1
-
-  // Complète une durée à gauche pour obtenir :
-  // (jours, heures, minutes, secondes).
-  let normaliser(duree) = {
-    (0,) * (4 - duree.len()) + duree
-  }
-  
-  let minuende = normaliser(durees.at(0))
-  let soustrait = normaliser(durees.at(1))
-
-  // ----------------------------------------------------------
-  // Conversion en secondes
-  // ----------------------------------------------------------
-
-  let en-secondes(duree) = {
-    duree.at(0) * 86400 + duree.at(1) * 3600 + duree.at(2) * 60 + duree.at(3)
-  }
-
-  let total-minuende = en-secondes(minuende)
-  let total-soustrait = en-secondes(soustrait)
-  let total-resultat = total-minuende - total-soustrait
-
-  if total-resultat < 0 {
-    panic(
-      "La soustraction de durées donnerait un résultat négatif."
-    )
-  }
-
-  // ----------------------------------------------------------
-  // Décomposition du résultat
-  // ----------------------------------------------------------
-
-  let jours = calc.trunc(total-resultat / 86400)
-  let reste-jours = total-resultat - jours * 86400
-
-  let heures = calc.trunc(reste-jours / 3600)
-  let reste-heures = reste-jours - heures * 3600
-
-  let minutes = calc.trunc(reste-heures / 60)
-  let secondes = reste-heures - minutes * 60
-
-  let resultat-complet = (
-    jours,
-    heures,
-    minutes,
-    secondes,
-  )
-
-  let resultat = resultat-complet.slice(debut)
-
-  // ----------------------------------------------------------
-  // Calcul des emprunts
-  // ----------------------------------------------------------
-  //
-  // emprunts-haut contient la quantité ajoutée au minuende :
-  // - 60 pour les secondes ;
-  // - 60 pour les minutes ;
-  // - 24 pour les heures.
-  //
-  // retenues-bas contient le 1 ajouté à l’unité située
-  // immédiatement à gauche dans le nombre soustrait.
-
-  let bases = (none, 24, 60, 60)
-  let emprunts-haut = (0, 0, 0, 0)
-  let retenues-bas = (0, 0, 0, 0)
-
-  let retenue = 0
-
-  // Calcul de droite à gauche :
-  // secondes, minutes, heures.
-  for colonne in (3, 2, 1) {
-    let valeur-soustraite = soustrait.at(colonne) + retenue
-    let valeur-minuende = minuende.at(colonne)
-
-    if valeur-minuende < valeur-soustraite {
-      emprunts-haut.at(colonne) = bases.at(colonne)
-      retenues-bas.at(colonne) = 1
-      retenue = 1
-    } else {
-      retenue = 0
-    }
-  }
-
-  // ----------------------------------------------------------
-  // Masques
-  // ----------------------------------------------------------
-
-  let mask(x) = if type-mask == "rect" {
-    rect(
-      width: 90%,
-      height: 1em,
-      radius: 0.35em,
-      stroke: couleur-cadre + 0.75pt,
-      text(
-        fill: if solution {
-          couleur-solution
-        } else {
-          white
-        },
-        x,
-      ),
-    )
-  } else {
-    box(
-      inset: 2pt,
-      underline(
-        stroke: (
-          paint: black,
-          dash: "dotted",
-          thickness: 0.75pt,
-        ),
-        extent: 0.45pt,
-        offset: 1.65pt,
-        text(
-          fill: if solution {
-            couleur-solution
-          } else {
-            white
-          },
-          x,
-        ),
-      ),
-    )
-  }
-
-  // ----------------------------------------------------------
-  // Mise en forme des valeurs
-  // ----------------------------------------------------------
-
-  let format-valeur(valeur, colonne-interne) = {
-    let texte-valeur = str(valeur)
-
-    if (
-      zero-pad
-      and colonne-interne > 0
-      and texte-valeur.len() < 2
-    ) {
-      "0" * (2 - texte-valeur.len()) + texte-valeur
-    } else {
-      texte-valeur
-    }
-  }
-
-  let creer-ligne-duree(duree, symbole) = {
-    let ligne = (symbole,)
-    let decalage = max-cols - duree.len()
-
-    // Unités absentes à gauche.
-    for _ in range(decalage) {
-      ligne.push([])
-    }
-
-    // Unités présentes.
-    for (index, valeur) in duree.enumerate() {
-      let colonne-interne = 4 - duree.len() + index
-
-      ligne.push(
-        format-valeur(
-          valeur,
-          colonne-interne,
-        )
-      )
-    }
-
-    ligne
-  }
-
-  // Les emprunts sont masqués pendant l’exercice, puis
-  // réaffichés lorsque solution vaut true.
-  let show-borrow-cond = (
-    show-borrow
-    and (
-      (not hide-result and liste == ())
-      or solution
-    )
-  )
-
-  // ----------------------------------------------------------
-  // Ligne supérieure des emprunts
-  // ----------------------------------------------------------
-
-  let ligne-emprunts = ([],)
-
-  if show-borrow-cond {
-    for colonne in range(debut, 4) {
-      let emprunt = emprunts-haut.at(colonne)
-
-      if emprunt > 0 {
-        ligne-emprunts.push(
-          pad(
-            bottom: -0.4em,
-            text(
-              size: 0.7em,
-              fill: couleur,
-            )[+#emprunt]
-          )
-        )
-      } else {
-        ligne-emprunts.push([])
-      }
-    }
-  }
-
-  // ----------------------------------------------------------
-  // Lignes principales
-  // ----------------------------------------------------------
-
-  let ligne-minuende = creer-ligne-duree(
-    durees.at(0),
-    [],
-  )
-
-  let ligne-soustrait = creer-ligne-duree(
-    durees.at(1),
-    text(0.8em)[$-$],
-  )
-
-  let ligne-resultat = (
-    if signe != false { signe } else { [] },
-  )
-
-  for (index, valeur) in resultat.enumerate() {
-    let colonne-interne = debut + index
-
-    ligne-resultat.push(
-      format-valeur(
-        valeur,
-        colonne-interne,
-      )
-    )
-  }
-
-  // ----------------------------------------------------------
-  // Ligne inférieure des retenues
-  // ----------------------------------------------------------
-
-  let ligne-retenues = ([],)
-
-  if show-borrow-cond {
-    for colonne in range(debut, 4) {
-      // L’emprunt effectué dans la colonne située à droite
-      // produit une retenue dans la colonne courante.
-      let retenue-colonne = if colonne + 1 < 4 {
-        retenues-bas.at(colonne + 1)
-      } else {
-        0
-      }
-
-      if retenue-colonne > 0 {
-        ligne-retenues.push(
-          pad(
-            top: -0.5em,
-            text(
-              size: 0.7em,
-              fill: couleur,
-            )[+#retenue-colonne]
-          )
-        )
-      } else {
-        ligne-retenues.push([])
-      }
-    }
-  }
-
-  // ----------------------------------------------------------
-  // Masquage du résultat
-  // ----------------------------------------------------------
-
-  if hide-result {
-    for index in range(1, ligne-resultat.len()) {
-      ligne-resultat.at(index) = mask(
-        ligne-resultat.at(index)
-      )
-    }
-  }
-
-  // ----------------------------------------------------------
-  // Soustraction à trous
-  // ----------------------------------------------------------
-  //
-  // La numérotation porte uniquement sur :
-  // - le minuende ;
-  // - la durée soustraite ;
-  // - le résultat.
-  //
-  // Les lignes d’emprunts ne sont pas comptées.
-
-  let termes = (
-    ligne-minuende
-    + ligne-soustrait
-    + ligne-resultat
-  )
-
-  for index in liste {
-    if (
-      type(index) == int
-      and index >= 0
-      and index < termes.len()
-      and termes.at(index) != []
-    ) {
-      termes.at(index) = mask(
-        termes.at(index)
-      )
-    }
-  }
-
-  // Séparation nécessaire pour insérer la ligne des retenues
-  // juste avant le résultat.
-  let debut-resultat = 2 * colonnes
-
-  let corps = ()
-
-  if show-borrow-cond {
-    corps += ligne-emprunts
-  }
-
-  corps += termes.slice(0, debut-resultat)
-
-  if show-borrow-cond {
-    corps += ligne-retenues
-  }
-
-  corps += termes.slice(debut-resultat)
-
-  // ----------------------------------------------------------
-  // En-tête
-  // ----------------------------------------------------------
-
-  let entete = ()
-
-  if show-units {
-    entete.push([])
-
-    for colonne in range(debut, 4) {
-      entete.push(
-        text(
-          size: 0.75em,
-          fill: gray,
-          weight: "bold",
-        )[
-          #unites.at(colonne)
-        ]
-      )
-    }
-  }
-
-  // La ligne horizontale doit être placée immédiatement
-  // au-dessus du résultat.
-  let y-resultat = (
-    (if show-units { 1 } else { 0 })
-    + (if show-borrow-cond { 1 } else { 0 })
-    + 2
-    + (if show-borrow-cond { 1 } else { 0 })
-  )
-
-  // ----------------------------------------------------------
-  // Rendu
-  // ----------------------------------------------------------
-
-  let columns = (1.4em,)
-
-  for _ in range(max-cols) {
-    columns.push(size)
-  }
-
-  box(
-    table(
-      columns: columns,
-      stroke: none,
-      inset: (x: 3pt, y: 3pt),
-      align: center + horizon,
-
-      ..entete,
-      ..corps,
-
-      table.hline(
-        y: y-resultat,
-        stroke: 1pt,
-      ),
-    )
-  )
 }

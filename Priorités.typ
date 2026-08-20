@@ -6,50 +6,50 @@
 // FONCTION PRINCIPALE : ETAPES-CALCUL
 // ---------------------------------------------------------
 
-/// etapes-calcul(expr-str, mode: "fr", concomitant: false, vertical: false, digits: 2, n: 0,  name: "", todo: false, space: 1fr, fraction: false, highlight: rgb("#1e88e5"), skip: ()) 
+// etapes-calcul(expr-str, mode: "fr", concomitant: false, vertical: false, digits: 2, n: 0,  name: "", todo: false, space: 1fr, fraction: false, highlight: rgb("#1e88e5"), skip: ()) 
 
-/// Fait le calcul détaillé de expr-str (sauf si todo:true) avec possibilité d'avoir les calculs indépendants de même priorité fait simultanément avec concomitant, en mode vertical ou horizontal, et mise en avant de l'étape en cours (highlight) avec un mode fraction forcant la poursuite des calculs avec des fractions 
-///
-///```example
-/// #etapes-calcul("[ 6 + 5 * (23 + 8 / 2) ] * 8", fraction: false, vertical: true,n:0)
-///```
-///```example
-/// #etapes-calcul("(200 - 45 * 2) / ((4 * 7 - 3 : 6) * 2)",concomitant: true)
-///```
-///```example
-/// #etapes-calcul("2 * pi * 3", fraction: false, name: "B",n:3)
-///```
-///```example
-/// #etapes-calcul("ln(exp(1)) + 3", fraction: true, name: "E")
-///``` #v(2em)
-///```example 
-/// #etapes-calcul("sqrt(8)*sqrt(27)", fraction: true)
-///```
-///-> content
+// Fait le calcul détaillé de expr-str (sauf si todo:true) avec possibilité d'avoir les calculs indépendants de même priorité fait simultanément avec concomitant, en mode vertical ou horizontal, et mise en avant de l'étape en cours (highlight) avec un mode fraction forcant la poursuite des calculs avec des fractions 
+// 
+// ```example
+// #etapes-calcul("[ 6 + 5 * (23 + 8 / 2) ] * 8", fraction: false, vertical: true,n:0)
+// ```
+// ```example
+// #etapes-calcul("(200 - 45 * 2) / ((4 * 7 - 3 : 6) * 2)",concomitant: true)
+// ```
+// ```example
+// #etapes-calcul("2 * pi * 3", fraction: false, name: "B",n:3)
+// ```
+// ```example
+// #etapes-calcul("ln(exp(1)) + 3", fraction: true, name: "E")
+// ``` #v(2em)
+// ```example 
+// #etapes-calcul("sqrt(8)*sqrt(27)", fraction: true)
+// ```
+// -> content
 #let etapes-calcul(
-  /// -> str
+  // -> str
   expr-str, 
-  /// mode "fr" ou "en" pour le séparateur décimal -> str
+  // mode "fr" ou "en" pour le séparateur décimal -> str
   mode: "fr", 
-  /// Passer à true pour avoir les calculs indépendants de même priorité fait simultanément -> boolean
+  // Passer à true pour avoir les calculs indépendants de même priorité fait simultanément -> boolean
   concomitant: false,
-  /// Pour avoir une présentation "en colonne" du calcul -> boolean
+  // Pour avoir une présentation "en colonne" du calcul -> boolean
   vertical: false,
-  /// Nombre de décimales dans les calculs avec pi ... -> int
+  // Nombre de décimales dans les calculs avec pi ... -> int
   digits: 2,
-  /// Nombre d'étapes (comptées depuis la fin) auquel remplacer le = par un approx si besoin -> int
+  // Nombre d'étapes (comptées depuis la fin) auquel remplacer le = par un approx si besoin -> int
   n: 0,
-  /// Nom à ajouter au début de l'expression -> str | content
+  // Nom à ajouter au début de l'expression -> str | content
   name: "",
-  /// Mode énoncé, seul l'expression proposé + un = apparaît -> boolean
+  // Mode énoncé, seul l'expression proposé + un = apparaît -> boolean
   todo: false,
-  /// Espacement horizontal entre deux etapes-calcul -> length
+  // Espacement horizontal entre deux etapes-calcul -> length
   space: 1fr,
-  /// En mode fraction, le calcul reste exact : soit en mode fraction soit en s'arrêtant à 5pi par ex. -> boolean
+  // En mode fraction, le calcul reste exact : soit en mode fraction soit en s'arrêtant à 5pi par ex. -> boolean
   fraction: false,
-  /// Soit une couleur qui met en avant les calculs en cours soit false pour du gras ou none pour rien du tout -> color | boolean | none
+  // Soit une couleur qui met en avant les calculs en cours soit false pour du gras ou none pour rien du tout -> color | boolean | none
   highlight: rgb("#1e88e5"),
-  /// liste des étapes à sauter si nécessaire -> array
+  // liste des étapes à sauter si nécessaire -> array
   skip: ()
 ) = {
   let tokens = tokenize(expr-str, fraction: fraction)
@@ -172,61 +172,63 @@
 // )
 // `
 
-/// `detail`(expr-str, `vertical:`false, `arrondi:`false, `digits:`2, `appro:`0, `todo:`false, `space:`1fr, `a:` aqua, ..., `c:` "color",) avec s18 -> sqrt(18) automatiquement
-/// Les paramètres `a, b, f, g, r, l, m, n, o, p, t, y` permettent de changer les couleurs typst par défaut si besoin
+// `detail`(expr-str, `vertical:`false, `arrondi:`false, `digits:`2, `appro:`0, `todo:`false, `space:`1fr, `a:` aqua, ..., `c:` "color",) avec s18 -> sqrt(18) automatiquement
+// Les paramètres `a, b, f, g, r, l, m, n, o, p, t, y` permettent de changer les couleurs typst par défaut si besoin
 
-/// Fonction pour détailler les calculs manuellement 
-///#v(2em)
-///```example
-/// #detail("A=15/21=(5*r3)/(7*r3)=5/7",arrondi:true,c:"circle")
-///```
-///```example
-/// #detail("B=(15s2)/(21s18)=(5*r3 s2)/(7*r3 s(9*2))=(5 ps2)/(21 bs2) =5/21",c:"color",vertical:true, arrondi: true)
-///```
-///```example
-/// #detail("cal(A)=pi * r^2 = pi*5^2=25 pi",arrondi: true,digits: 4)
-///```
-/// -> content
+// Fonction pour détailler les calculs manuellement 
+// #v(2em)
+// ```example
+// #detail("A=15/21=(5*r3)/(7*r3)=5/7",arrondi:true,c:"circle")
+// ```
+// ```example
+// #detail("B=(15s2)/(21s18)=(5*r3 s2)/(7*r3 s(9*2))=(5 ps2)/(21 bs2) =5/21",c:"color",vertical:true, arrondi: true)
+// ```
+// ```example
+// #detail("cal(A)=pi * r^2 = pi*5^2=25 pi",arrondi: true,digits: 4)
+// ```
+// -> content
 #let detail(
-  /// Le calcul comme avant -> str
+  // Le calcul comme avant -> str
   expr-str,
-  /// mode vertical ou non -> boolean
+  // mode "fr" ou "en" pour le séparateur décimal -> str
+  mode: "fr", 
+  // mode vertical ou non -> boolean
   vertical:false,
-  /// Si ajout d'un arrondi à la fin ou non -> boolean
+  // Si ajout d'un arrondi à la fin ou non -> boolean
   arrondi:false,
-  /// le nombre de chiffres de l'arrondi -> int
+  // le nombre de chiffres de l'arrondi -> int
   digits:2,
-  /// rang à partir duquel remplacer les = par des approx si besoin -> int
+  // rang à partir duquel remplacer les = par des approx si besoin -> int
   appro:0,
-  /// si todo:true, seul l'expression initiale est affichée -> boolean
+  // si todo:true, seul l'expression initiale est affichée -> boolean
   todo:false,
-  /// l'espace de séparation avant le calcul suivant -> length
+  // l'espace de séparation avant le calcul suivant -> length
   space:1fr,
-  /// a:aqua peut être changée de la couleur typst par défaut si besoin -> color
+  // a:aqua peut être changée de la couleur typst par défaut si besoin -> color
   a: aqua,
-  /// b: blue peut être changée de la couleur typst par défaut si besoin -> color
+  // b: blue peut être changée de la couleur typst par défaut si besoin -> color
   b: blue,
-  /// f: fuchsia peut être changée de la couleur typst par défaut si besoin -> color
+  // f: fuchsia peut être changée de la couleur typst par défaut si besoin -> color
   f: fuchsia,
-  /// g: green peut être changée de la couleur typst par défaut si besoin -> color
+  // g: green peut être changée de la couleur typst par défaut si besoin -> color
   g: green,
-  /// r: red peut être changée de la couleur typst par défaut si besoin -> color
+  // r: red peut être changée de la couleur typst par défaut si besoin -> color
   r: red,
-  /// l: gray peut être changée de la couleur typst par défaut si besoin -> color
+  // l: gray peut être changée de la couleur typst par défaut si besoin -> color
   l: gray,
-  /// m: maroon peut être changée de la couleur typst par défaut si besoin -> color
+  // m: maroon peut être changée de la couleur typst par défaut si besoin -> color
   m: maroon,
-  /// n:rgb(8, 111, 189) -> navy peut être changée si besoin -> color
+  // n:rgb(8, 111, 189) -> navy peut être changée si besoin -> color
   n: rgb("#086fbd"),
-  /// o: orange peut être changée de la couleur typst par défaut si besoin -> color
+  // o: orange peut être changée de la couleur typst par défaut si besoin -> color
   o: orange,
-  /// t: rgb(0,128,128) -> teal peut être changée si besoin -> color
+  // t: rgb(0,128,128) -> teal peut être changée si besoin -> color
   t: rgb(0,128,128),
-  /// p: purple peut être changée de la couleur typst par défaut si besoin -> color
+  // p: purple peut être changée de la couleur typst par défaut si besoin -> color
   p: purple,
-  /// y: yellow peut être changée de la couleur typst par défaut si besoin -> color
+  // y: yellow peut être changée de la couleur typst par défaut si besoin -> color
   y: yellow,
-  /// choix du mode "cancel" ou "circle" ou "color" -> str
+  // choix du mode "cancel" ou "circle" ou "color" -> str
   c: "color",
 ) = {
   // Cartographie des identifiants de couleur vers leurs variables respectives
@@ -343,10 +345,26 @@
     
   }
 
+  set-round(precision:digits, mode:"places", pad: false)
+  show regex("\d+(\.\d+)?"): x => math.class("normal", num(x))
+  show math.equation: it => {
+    show regex("\d+(\.\d+)?"): x => math.class("normal", num(x))
+    show regex("[A-Z]"): math.upright
+    it
+  }
+
   // Génération du bloc d'équation final sans conflit de délimiteurs
-  box(
-    math.equation(block: true, eval(final-math-str, mode: "math", scope: (deco: deco))),
-    // after: space
-  )+h(space)
+  if mode == "fr" {
+    box({
+      show math.frac: math.display
+      set-num(decimal-separator: "," + h(0pt))
+      math.equation(block: true, eval(final-math-str, mode: "math", scope: (deco: deco)))
+    }, outset: 0pt)
+  } else {
+    box({
+      set-num(decimal-separator: "." + h(0pt))
+      math.equation(block: true, eval(final-math-str, mode: "math", scope: (deco: deco)))
+    }, outset: 0pt)
+  } + h(space)
 }
 
