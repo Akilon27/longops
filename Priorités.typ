@@ -27,7 +27,7 @@
 // ```
 // -> content
 #let etapes-calcul(
-  // -> str
+  // expression à calculer -> str
   expr-str, 
   // mode "fr" ou "en" pour le séparateur décimal -> str
   mode: "fr", 
@@ -49,7 +49,7 @@
   fraction: false,
   // Soit une couleur qui met en avant les calculs en cours soit false pour du gras ou none pour rien du tout -> color | boolean | none
   highlight: rgb("#1e88e5"),
-  // liste des étapes à sauter si nécessaire -> array
+  // list des étapes à sauter si nécessaire -> array
   skip: ()
 ) = {
   let tokens = tokenize(expr-str, fraction: fraction)
@@ -151,7 +151,7 @@
 // #detail(
 //   expr-str,
 //   vertical: false,
-//   arrondi: false,
+//   add-rounded: false,
 //   digits: 2,
 //   appro: 0,
 //   todo: false,
@@ -172,33 +172,33 @@
 // )
 // `
 
-// `detail`(expr-str, `vertical:`false, `arrondi:`false, `digits:`2, `appro:`0, `todo:`false, `space:`1fr, `a:` aqua, ..., `c:` "color",) avec s18 -> sqrt(18) automatiquement
+// `detail`(expr-str, `vertical:`false, `add-rounded:`false, `digits:`2, `appro:`0, `todo:`false, `space:`1fr, `a:` aqua, ..., `c:` "color",) avec s18 -> sqrt(18) automatiquement
 // Les paramètres `a, b, f, g, r, l, m, n, o, p, t, y` permettent de changer les couleurs typst par défaut si besoin
 
 // Fonction pour détailler les calculs manuellement 
 // #v(2em)
 // ```example
-// #detail("A=15/21=(5*r3)/(7*r3)=5/7",arrondi:true,c:"circle")
+// #detail("A=15/21=(5*r3)/(7*r3)=5/7",add-rounded:true,c:"circle")
 // ```
 // ```example
-// #detail("B=(15s2)/(21s18)=(5*r3 s2)/(7*r3 s(9*2))=(5 ps2)/(21 bs2) =5/21",c:"color",vertical:true, arrondi: true)
+// #detail("B=(15s2)/(21s18)=(5*r3 s2)/(7*r3 s(9*2))=(5 ps2)/(21 bs2) =5/21",c:"color",vertical:true, add-rounded: true)
 // ```
 // ```example
-// #detail("cal(A)=pi * r^2 = pi*5^2=25 pi",arrondi: true,digits: 4)
+// #detail("cal(A)=pi * r^2 = pi*5^2=25 pi",add-rounded: true,digits: 4)
 // ```
 // -> content
 #let detail(
-  // Le calcul comme avant -> str
+  // le calcul à présenter -> str
   expr-str,
   // mode "fr" ou "en" pour le séparateur décimal -> str
   mode: "fr", 
   // mode vertical ou non -> boolean
   vertical:false,
   // Si ajout d'un arrondi à la fin ou non -> boolean
-  arrondi:false,
+  add-rounded:false,
   // le nombre de chiffres de l'arrondi -> int
   digits:2,
-  // rang à partir duquel remplacer les = par des approx si besoin -> int
+  // rang à partir duquel remplacer les = par des ≈ si besoin -> int
   appro:0,
   // si todo:true, seul l'expression initiale est affichée -> boolean
   todo:false,
@@ -277,7 +277,7 @@
     // 5. Racines standards directes : s2
     s = s.replace(regex("s(\d+)"), m => " sqrt(" + m.captures.at(0) + ") ")
     
-    // 6. Remplacement du signe multiplicateur
+    // 6. Remplacement du sign multiplicateur
     s = s.replace("*", " times ")
     
     processed-steps.push(s)
@@ -306,12 +306,12 @@
       final-math-str += op + processed-steps.at(i)
     }
   }
-  let signe = "≈"
+  let sign = "≈"
   
-  if arrondi not in (true,false) {arrondi = true;signe = "="}
+  if add-rounded not in (true,false) {add-rounded = true;sign = "="}
   
   // Calcul automatique et injection de la valeur arrondie si demandée
-  if arrondi and not todo and steps.len() > 0 {
+  if add-rounded and not todo and steps.len() > 0 {
     let last-raw = steps.last()
 
     if "pi" in last-raw {
@@ -320,9 +320,9 @@
       
       let rounded = clean-raw + "≈" + str(calc.round(eval(clean-raw.replace("times","*")), digits: digits)) + "≈" + str(calc.round(eval(clean-raw.replace("times","*")), digits: digits - 1))
       if vertical {
-      final-math-str += " \\ "+signe+"& " + str(rounded)
+      final-math-str += " \\ "+sign+"& " + str(rounded)
     } else {
-      final-math-str += signe + str(rounded)
+      final-math-str += sign + str(rounded)
     }
     } else {
     let clean-raw = last-raw
@@ -337,9 +337,9 @@
     let num-value = eval(clean-raw)
     let rounded = calc.round(num-value, digits: digits)
     if vertical {
-      final-math-str += " \\ "+signe+"& " + str(rounded)
+      final-math-str += " \\ "+sign+"& " + str(rounded)
     } else {
-      final-math-str += signe + str(rounded)
+      final-math-str += sign + str(rounded)
     }
   }
     

@@ -2,7 +2,7 @@
 
 // Convertis des durées décimales ou fractionnaires en durées entières -> array
 #let prepa-duree(
-  // liste de 2 à 4 nombres (j,h,min,s) à (min, s) -> array | arguments
+  // list de 2 à 4 nombres (j,h,min,s) à (min, s) -> array | arguments
   ..args
 ) = {
   let duree = args.pos()
@@ -87,7 +87,7 @@
   // Afficher les retenues. -> boolean
   show-carry: true,
   // Couleur des retenues. -> color
-  couleur: red,
+  carries-color: red,
   // Taille des retenues et des symboles + et =, max 1em. -> relative length
   carry-size:.8em,
   // Largeur des colonnes correspondant aux unités. -> relative length
@@ -99,19 +99,19 @@
   // Masquer le résultat. -> boolean
   hide-result: false,
   // Couleur du cadre des valeurs masquées. -> color
-  couleur-cadre: blue.mix(gray),
+  border-color: blue.mix(gray),
   // Couleur des valeurs dans la correction. -> color
-  couleur-solution: red,
+  solution-color: red,
   // Type de masque : "rect" ou "line". -> str
   type-mask: "rect",
   // Indices des cellules à masquer. -> array
-  liste: (),
+  list: (),
   // Afficher la solution des cellules masquées. -> boolean
   solution: false,
-  // Signe placé devant le résultat. -> boolean | content
-  signe: false,
+  // sign placé devant le résultat. -> boolean | content
+  sign: false,
   // Taille du texte. -> relative length
-  texte: 1em,
+  text-size: 1em,
   // Afficher les noms des unités. -> boolean
   show-units: true,
   // Noms des quatre unités. -> array
@@ -119,14 +119,14 @@
   // Taille des unités, max 1em -> relative length
   units-size:.75em,
   // couleur des unités -> color
-  couleur-unites:gray,
+  units-color:gray,
   // Afficher heures, minutes et secondes sur deux chiffres. -> boolean
   zero-pad: true,
   // Aligner les chiffres des unités. -> boolean
   align: true,
   // Pointillés verticaux pour séparer les colonnes -> boolean
-  verticales: false,
-  // -> array | arguments
+  verticals: false,
+  // durées à additionner -> array | arguments
   ..args
 ) = {
   let unites = units
@@ -201,7 +201,7 @@
     // }
   }
 
-  set text(texte)
+  set text(text-size)
 
   // Masque utilisé pour le résultat et les additions à trous.
   let mask(x) = if type-mask == "rect" {
@@ -209,9 +209,9 @@
       width: 90%,
       height: 1em,
       radius: 0.35em,
-      stroke: couleur-cadre + 0.75pt,
+      stroke: border-color + 0.75pt,
       text(
-        fill: if solution { couleur-solution } else { white },
+        fill: if solution { solution-color } else { white },
         x,
       ),
     )
@@ -227,7 +227,7 @@
         extent: 0.45pt,
         offset: 1.65pt,
         text(
-          fill: if solution { couleur-solution } else { white },
+          fill: if solution { solution-color } else { white },
           x,
         ),
       ),
@@ -282,7 +282,7 @@
   let resultat-court = {if resultat.at(0) == 0 and resultat.at(1) == 0 {resultat.slice(2)} else if resultat.at(0) == 0 {resultat.slice(1)} else {resultat}}
 
   // if convertion 
-  let pre-result = (if signe == true {text(carry-size)[$ = $]} else if signe != false { signe } else [],) + if jours-directs != 0 {(str(jours-directs),)} else if resultat-court.len() > 3 {([],)} + if heures-directes !=0 {(str(heures-directes),)} else if resultat-court.len() > 2 {([],)} + (str(minutes-directes),str(total-secondes))
+  let pre-result = (if sign == true {text(carry-size)[$ = $]} else if sign != false { sign } else [],) + if jours-directs != 0 {(str(jours-directs),)} else if resultat-court.len() > 3 {([],)} + if heures-directes !=0 {(str(heures-directes),)} else if resultat-court.len() > 2 {([],)} + (str(minutes-directes),str(total-secondes))
   
   // {
   //   if durees.len() > 3 {pre-result.push(str(durees.map(d => d.at(0)).sum()))} else if resultat-court.len() > 3 {pre-result.push([])}
@@ -333,7 +333,7 @@
   let has-carry-row = (
     show-carry and not convertion
     // and (
-    //   (not hide-result and liste == ())
+    //   (not hide-result and list == ())
     //   or solution
     // )
   )
@@ -353,7 +353,7 @@
         ligne-retenues.push(
           text(
             size: carry-size,
-            fill: couleur,
+            fill: carries-color,
           )[~~#retenue]
         )
       } else {
@@ -391,7 +391,7 @@
   // 3. Ligne du résultat.
   // ---------------------------
   let ligne-resultat = (
-    if signe == true or convertion {text(carry-size)[$ = $]} else if signe != false { signe } else [],
+    if sign == true or convertion {text(carry-size)[$ = $]} else if sign != false { sign } else [],
   )
 
   for (colonne, valeur) in resultat-court.enumerate() {
@@ -423,7 +423,7 @@
 
   ligne-resultat = if false in test or not convertion {ligne-resultat} else {()}
 
-  if convertion and (not hide-result and liste == () or solution) {
+  if convertion and (not hide-result and list == () or solution) {
     lignes.push(pre-result)
   }
   
@@ -460,7 +460,7 @@
 
   let termes = lignes.flatten()
 
-  for index in liste {
+  for index in list {
     if (
       type(index) == int
       and index > 0
@@ -489,7 +489,7 @@
       entete.push(
         text(
           size: units-size,
-          fill: couleur-unites,
+          fill: units-color,
           weight: "bold",
         )[#unite]
       )
@@ -523,7 +523,7 @@
   box(
     if columns.len() > 1 {table(
       columns: columns,
-      stroke: (x,y) => if verticales and x > 1 {(left:(dash:"dotted",thickness:.5pt))} else {none},
+      stroke: (x,y) => if verticals and x > 1 {(left:(dash:"dotted",thickness:.5pt))} else {none},
       inset: (x: 3pt, y: 3pt),
       align: center + horizon,
 
@@ -570,7 +570,7 @@
   // Afficher les emprunts et les retenues. -> boolean
   show-borrow: true,
   // Couleur des emprunts et retenues. -> color
-  couleur: red,
+  carries-color: red,
   // Taille des retenues et des symboles + et =, max 1em.  -> relative length
   carry-size:.7em,
   // Largeur des colonnes. -> relative length
@@ -582,19 +582,19 @@
   // Masquer le résultat. -> boolean
   hide-result: false,
   // Couleur du cadre des valeurs masquées. -> color
-  couleur-cadre: blue.mix(gray),
+  border-color: blue.mix(gray),
   // Couleur des valeurs dans la correction. -> color
-  couleur-solution: red,
+  solution-color: red,
   // Type de masque : "rect" ou "line". -> str
   type-mask: "rect",
   // Indices des cellules à masquer. -> array
-  liste: (),
+  list: (),
   // Afficher la solution. -> boolean
   solution: false,
-  // Signe placé devant le résultat. -> boolean | content
-  signe: false,
+  // sign placé devant le résultat. -> boolean | content
+  sign: false,
   // Taille du texte. -> relative length
-  texte: 1em,
+  text-size: 1em,
   // Afficher les noms des unités. -> boolean
   show-units: true,
   // Noms des quatre unités. -> array
@@ -602,14 +602,14 @@
   // Taille des unités, max 1em. -> relative length
   units-size:.75em,
   // couleur des unités. -> color
-  couleur-unites:gray,
+  units-color:gray,
   // Afficher heures, minutes et secondes sur deux chiffres. -> boolean
   zero-pad: true,
   // Aligner les chiffres des unités. -> boolean
   align:true,
   // Pointillés verticaux pour séparer les colonnes -> boolean
-  verticales: false,
-  // Liste des durées -> array | arguments
+  verticals: false,
+  // liste des durées -> array | arguments
   ..args
 ) = {
   let unites = units
@@ -658,7 +658,7 @@
       panic(
         "La durée "
         + str(index + 1)
-        + " doit être une liste d'entiers."
+        + " doit être une list d'entiers."
       )
     }
 
@@ -700,7 +700,7 @@
     }
   }
 
-  set text(texte)
+  set text(text-size)
 
   // ----------------------------------------------------------
   // Nombre de colonnes à afficher
@@ -813,10 +813,10 @@
       width: 90%,
       height: 1em,
       radius: 0.35em,
-      stroke: couleur-cadre + 0.75pt,
+      stroke: border-color + 0.75pt,
       text(
         fill: if solution {
-          couleur-solution
+          solution-color
         } else {
           white
         },
@@ -836,7 +836,7 @@
         offset: 1.65pt,
         text(
           fill: if solution {
-            couleur-solution
+            solution-color
           } else {
             white
           },
@@ -898,7 +898,7 @@
   let show-borrow-cond = (
     show-borrow or convertion
     // and (
-    //   (not hide-result and liste == ())
+    //   (not hide-result and list == ())
     //   or solution
     // )
   )
@@ -914,7 +914,7 @@
       let emprunt = emprunts-haut.at(colonne)
 
       if emprunt > 0 and (
-      (not hide-result and liste == ())
+      (not hide-result and list == ())
       or solution
     ) {if convertion {ligne-emprunts.push(format-valeur(
         emprunt,
@@ -928,7 +928,7 @@
             // right: .3em,
             text(
               size: carry-size,
-              fill: couleur,
+              fill: carries-color,
             )[+#emprunt]
           )
         )}
@@ -947,7 +947,7 @@
     [],
   )
   
-  if convertion and ((not hide-result and liste == ()) or solution) {
+  if convertion and ((not hide-result and list == ()) or solution) {
     for k in range(1,ligne-minuende.len()) {
       if ligne-minuende.at(k) != ligne-emprunts.at(k) {
         ligne-minuende.at(k) = if ligne-minuende.at(k) != [] {text(gray,[$ cancel(#ligne-minuende.at(k)) $])}
@@ -960,7 +960,7 @@
   )
 
   let ligne-resultat = (
-    if signe == true {$ = $} else if signe != false { signe } else { [] },
+    if sign == true {$ = $} else if sign != false { sign } else { [] },
   )
 
   for (index, valeur) in resultat.enumerate() {
@@ -991,7 +991,7 @@
       }
 
       if retenue-colonne > 0 and (
-      (not hide-result and liste == ())
+      (not hide-result and list == ())
       or solution
     ) {
         ligne-retenues.push(
@@ -999,7 +999,7 @@
             top: -0.5em,
             text(
               size: carry-size,
-              fill: couleur,
+              fill: carries-color,
             )[+#retenue-colonne]
           )
         )
@@ -1061,7 +1061,7 @@
     + ligne-resultat
   )
 
-  for index in liste {
+  for index in list {
     if (
       type(index) == int
       and index >= 0
@@ -1105,7 +1105,7 @@
       entete.push(
         text(
           size: units-size,
-          fill: couleur-unites,
+          fill: units-color,
           weight: "bold",
         )[
           #unites.at(colonne)
@@ -1145,7 +1145,7 @@
   box(
     if columns.len() > 1 {table(
       columns: columns,
-      stroke: (x,y) => if verticales and x > 1 {(left:(dash:"dotted",thickness:.5pt))} else {none},
+      stroke: (x,y) => if verticals and x > 1 {(left:(dash:"dotted",thickness:.5pt))} else {none},
       inset: (x: 3pt, y: 3pt),
       align: center + horizon,
 
